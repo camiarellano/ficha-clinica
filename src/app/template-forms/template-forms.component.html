@@ -1,4 +1,5 @@
-<div class="container">
+<div class="container" *ngIf="cerrarVista"><H1>Hasta pronto!</H1></div>
+<div class="container" *ngIf="!cerrarVista">
 	<form (ngSubmit)="submit()" #forma="ngForm">
 		<h3>Ficha médica</h3>
 		<hr />
@@ -108,9 +109,9 @@
 				La ciudad es requerida
 			</div>
 		</div>
-		<label for="telefono"><b>Télefono</b></label>
+		<label for="telefono"><b>Teléfono</b></label>
 		<input
-            type="text"
+            type="tel"
             #telefono="ngModel"
             [(ngModel)]="register.telefono"
             placeholder="Ingrese su telefono"
@@ -153,7 +154,7 @@
 		</div>
 		<label for="fnaciemiento"><b>Fecha nacimiento</b></label>
 		<input
-            type="text"
+            type="date"
             #fnaciemiento="ngModel"
             [(ngModel)]="register.fnaciemiento"
             placeholder="Ingrese su fnaciemiento"
@@ -206,8 +207,14 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-lg">
-				<button type="submit" class="btn btn-primary" [disabled]="!forma.valid">Registrarse</button>
+			<div class="col-lg col-4">
+				<a (click)="cerrar()" class="btn btn-danger">Cerrar</a>
+			</div>
+			<div class="col-lg col-4">
+				<a (click)="limpiar()" class="btn btn-warning">Limpiar</a>
+			</div>
+			<div class="col-lg col-4">
+				<button type="submit" class="btn btn-primary" [disabled]="!forma.valid">Guardad</button>
 			</div>
 		</div>
 	</form>

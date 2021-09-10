@@ -9,7 +9,7 @@ interface IRegisterForm {
   ciudad: string;
   telefono: string;
   email: string;
-  fechaNacimiento: String;
+  fnaciemiento: String;
   estadoCivil: string;
   comentarios: string;
 }
@@ -20,6 +20,7 @@ interface IRegisterForm {
   styleUrls: ["./template-forms.component.css"]
 })
 export class TemplateFormsComponent {
+  cerrarVista = false;
   register: IRegisterForm = {
     rut: "",
     name: "",
@@ -28,7 +29,7 @@ export class TemplateFormsComponent {
     ciudad: "",
     telefono: "",
     email: "",
-    fechaNacimiento: "",
+    fnaciemiento: null,
     estadoCivil: "",
     comentarios: ""
   };
@@ -44,4 +45,22 @@ export class TemplateFormsComponent {
 
     // Con estos datos ya todo OK, los enviamos al servidor para comprobar si el login es OK o NO
   }
+
+  limpiar() {
+    this.register.rut = "";
+    this.register.name= "";
+    this.register.apellido= "";
+    this.register.direccion= "";
+    this.register.ciudad= "";
+    this.register.telefono= "";
+    this.register.email= "";
+    this.register.fnaciemiento= null;
+    this.register.estadoCivil= "";
+    this.register.comentarios= "";
+  }
+
+  cerrar() {
+    this.cerrarVista = true;
+  }
+
 }
