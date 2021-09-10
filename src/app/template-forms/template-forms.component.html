@@ -1,0 +1,214 @@
+<div class="container">
+	<form (ngSubmit)="submit()" #forma="ngForm">
+		<h3>Ficha médica</h3>
+		<hr />
+		<label for="rut"><b>Rut</b></label>
+		<input
+            type="text"
+            #rut="ngModel"
+            [(ngModel)]="register.rut"
+            placeholder="Ingrese su rut"
+            name="rut"
+            minlength="12"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !rut.invalid, 'is-invalid': rut.invalid && (rut.dirty || rut.touched)}"
+			pattern="^\d{1,2}.\d{3}.\d{3}-[k|K|\d]{1}$"
+          />
+
+		<div class="invalid-feedback" *ngIf="rut.invalid && (rut.dirty || rut.touched)">
+			<div *ngIf="rut.errors.minlength">
+				Ingrese un rut válido
+			</div>
+			<div *ngIf="rut.errors.required">
+				El rut es requerido
+			</div>
+		</div>
+		<label for="name"><b>Nombres</b></label>
+		<input
+            type="text"
+            #name="ngModel"
+            [(ngModel)]="register.name"
+            placeholder="Ingrese su nombre"
+            name="name"
+            minlength="5"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !name.invalid, 'is-invalid': name.invalid && (name.dirty || name.touched)}"
+          />
+
+		<div class="invalid-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
+			<div *ngIf="name.errors.minlength">
+				Ingrese un nombre con 5 caracteres mínimo
+			</div>
+			<div *ngIf="name.errors.required">
+				Ingrese un nombre válido por favor
+			</div>
+		</div>
+		<label for="apellido"><b>Apellidos</b></label>
+		<input
+            type="text"
+            #apellido="ngModel"
+            [(ngModel)]="register.apellido"
+            placeholder="Ingrese su apellido"
+            name="apellido"
+            minlength="5"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !apellido.invalid, 'is-invalid': apellido.invalid && (apellido.dirty || apellido.touched)}"
+          />
+
+		<div class="invalid-feedback" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+			<div *ngIf="apellido.errors.minlength">
+				Ingrese un apellido válido
+			</div>
+			<div *ngIf="apellido.errors.required">
+				El apellido es requerido
+			</div>
+		</div>
+		<label for="direccion"><b>Direccion</b></label>
+		<input
+            type="text"
+            #direccion="ngModel"
+            [(ngModel)]="register.direccion"
+            placeholder="Ingrese su direccion"
+            name="direccion"
+            minlength="5"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !direccion.invalid, 'is-invalid': direccion.invalid && (direccion.dirty || direccion.touched)}"
+          />
+
+		<div class="invalid-feedback" *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+			<div *ngIf="direccion.errors.minlength">
+				Ingrese una direccion válida
+			</div>
+			<div *ngIf="direccion.errors.required">
+				La direccion es requerida
+			</div>
+		</div>
+		<label for="ciudad"><b>Ciudad</b></label>
+		<input
+            type="text"
+            #ciudad="ngModel"
+            [(ngModel)]="register.ciudad"
+            placeholder="Ingrese su ciudad"
+            name="ciudad"
+            minlength="5"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !ciudad.invalid, 'is-invalid': ciudad.invalid && (ciudad.dirty || ciudad.touched)}"
+          />
+
+		<div class="invalid-feedback" *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)">
+			<div *ngIf="ciudad.errors.minlength">
+				Ingrese una ciudad válida
+			</div>
+			<div *ngIf="ciudad.errors.required">
+				La ciudad es requerida
+			</div>
+		</div>
+		<label for="telefono"><b>Télefono</b></label>
+		<input
+            type="text"
+            #telefono="ngModel"
+            [(ngModel)]="register.telefono"
+            placeholder="Ingrese su telefono"
+            name="telefono"
+            minlength="9"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !telefono.invalid, 'is-invalid': telefono.invalid && (telefono.dirty || telefono.touched)}"
+          />
+
+		<div class="invalid-feedback" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+			<div *ngIf="telefono.errors.minlength">
+				Ingrese una telefono válido
+			</div>
+			<div *ngIf="telefono.errors.required">
+				La telefono es requerido
+			</div>
+		</div>
+		<label for="email"><b>Correo electrónico</b></label>
+		<input
+            type="email"
+            #email="ngModel"
+            [(ngModel)]="register.email"
+            placeholder="Ingrese la correo electrónico"
+            name="email"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !email.invalid, 'is-invalid': email.invalid && (email.dirty || email.touched)}"
+            pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+          />
+
+		<div class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
+			<div *ngIf="email.errors.required">
+				Ingrese un correo electrónico válido por favor {{ email.value }}
+			</div>
+			<div *ngIf="email.errors && email.errors.pattern">
+				El correo electrónico no sigue el formato correcto. Sigue este ejemplo: anartz@mugika.com
+				{{ email.value }}
+			</div>
+		</div>
+		<label for="fnaciemiento"><b>Fecha nacimiento</b></label>
+		<input
+            type="text"
+            #fnaciemiento="ngModel"
+            [(ngModel)]="register.fnaciemiento"
+            placeholder="Ingrese su fnaciemiento"
+            name="fnaciemiento"
+            minlength="9"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !fnaciemiento.invalid, 'is-invalid': fnaciemiento.invalid && (fnaciemiento.dirty || fnaciemiento.touched)}"
+          />
+
+		<div class="invalid-feedback" *ngIf="fnaciemiento.invalid && (fnaciemiento.dirty || fnaciemiento.touched)">
+			<div *ngIf="fnaciemiento.errors.minlength">
+				Ingrese una fecha válida
+			</div>
+			<div *ngIf="fnaciemiento.errors.required">
+				La fecha es requerida
+			</div>
+		</div>
+		<label for="ecivil"><b>Estado civil</b></label>
+		<input
+            type="text"
+            placeholder="Ingrese su estado civil"
+            #ecivil="ngModel"
+            [(ngModel)]="register.ecivil"
+            name="ecivil"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !ecivil.invalid, 'is-invalid': ecivil.invalid && (ecivil.dirty || ecivil.touched)}"
+          />
+		<div class="invalid-feedback" *ngIf="ecivil.invalid && (ecivil.dirty || ecivil.touched)">
+			<div *ngIf="ecivil.errors.required">
+				Ingrese un estado civil válido
+			</div>
+		</div>
+		<label for="comentarios"><b>Comentarios</b></label>
+		<input
+            type="text"
+            placeholder="Ingrese comentarios"
+            #comentarios="ngModel"
+            [(ngModel)]="register.comentarios"
+            name="comentarios"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !comentarios.invalid, 'is-invalid': comentarios.invalid && (comentarios.dirty || comentarios.touched)}"
+          />
+		<div class="invalid-feedback" *ngIf="comentarios.invalid && (comentarios.dirty || comentarios.touched)">
+			<div *ngIf="comentarios.errors.required">
+				Ingrese un comentario por favor
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg">
+				<button type="submit" class="btn btn-primary" [disabled]="!forma.valid">Registrarse</button>
+			</div>
+		</div>
+	</form>
+</div>
