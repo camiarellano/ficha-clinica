@@ -69,6 +69,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "Aa1Z":
+/*!*************************************************!*\
+  !*** ./src/app/template-forms/forms.service.ts ***!
+  \*************************************************/
+/*! exports provided: FormsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormsService", function() { return FormsService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "IheW");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "8Y7J");
+
+
+
+let FormsService = class FormsService {
+    constructor(http) {
+        this.http = http;
+    }
+    getUsersList() {
+        return this.http.get(`/assets/api-users.json`);
+    }
+    getUser(value) {
+        return this.http.get(`http://fichaclinica.cl:9000/api/users/${value}`);
+    }
+};
+FormsService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+FormsService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], FormsService);
+
+
+
+/***/ }),
+
 /***/ "N758":
 /*!************************************************************!*\
   !*** ./src/app/reactive-forms/reactive-forms.component.ts ***!
@@ -169,13 +209,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_template_forms_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./template-forms.component.html */ "sRGA");
 /* harmony import */ var _template_forms_component_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./template-forms.component.css */ "XVOJ");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
+/* harmony import */ var _forms_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./forms.service */ "Aa1Z");
+
 
 
 
 
 let TemplateFormsComponent = class TemplateFormsComponent {
-    constructor() {
+    constructor(formsService) {
+        this.formsService = formsService;
         this.cerrarVista = false;
+        this.verLista = false;
+        this.usersList = [];
         this.register = {
             rut: "",
             name: "",
@@ -188,6 +233,10 @@ let TemplateFormsComponent = class TemplateFormsComponent {
             estadoCivil: "",
             comentarios: ""
         };
+        this.subscription = null;
+    }
+    ngOnInit() {
+        this.getUsers();
     }
     submit() {
         // Llegados a este punto, ya hemos podido validar todo excepto las contraseñas y ya recibimos los datos
@@ -213,8 +262,26 @@ let TemplateFormsComponent = class TemplateFormsComponent {
     cerrar() {
         this.cerrarVista = true;
     }
+    verUsers() {
+        this.verLista = true;
+    }
+    volver() {
+        this.verLista = false;
+    }
+    /**
+     * Obtiene lista de indicadares
+     */
+    getUsers() {
+        this.subscription = this.formsService.getUsersList()
+            .subscribe(response => {
+            console.log('response', response.usuarios);
+            this.usersList = response.usuarios;
+        });
+    }
 };
-TemplateFormsComponent.ctorParameters = () => [];
+TemplateFormsComponent.ctorParameters = () => [
+    { type: _forms_service__WEBPACK_IMPORTED_MODULE_4__["FormsService"] }
+];
 TemplateFormsComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: "app-template-forms",
@@ -315,10 +382,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "cUpR");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "s7LF");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "Sy1n");
-/* harmony import */ var _hello_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hello.component */ "1VHI");
-/* harmony import */ var _reactive_forms_reactive_forms_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reactive-forms/reactive-forms.component */ "N758");
-/* harmony import */ var _template_forms_template_forms_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./template-forms/template-forms.component */ "QF0Q");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "IheW");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "Sy1n");
+/* harmony import */ var _hello_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hello.component */ "1VHI");
+/* harmony import */ var _reactive_forms_reactive_forms_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reactive-forms/reactive-forms.component */ "N758");
+/* harmony import */ var _template_forms_template_forms_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./template-forms/template-forms.component */ "QF0Q");
+
 
 
 
@@ -331,14 +400,14 @@ let AppModule = class AppModule {
 };
 AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"]],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-            _hello_component__WEBPACK_IMPORTED_MODULE_5__["HelloComponent"],
-            _reactive_forms_reactive_forms_component__WEBPACK_IMPORTED_MODULE_6__["ReactiveFormsComponent"],
-            _template_forms_template_forms_component__WEBPACK_IMPORTED_MODULE_7__["TemplateFormsComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+            _hello_component__WEBPACK_IMPORTED_MODULE_6__["HelloComponent"],
+            _reactive_forms_reactive_forms_component__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsComponent"],
+            _template_forms_template_forms_component__WEBPACK_IMPORTED_MODULE_8__["TemplateFormsComponent"]
         ],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
     })
 ], AppModule);
 
@@ -450,7 +519,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\" *ngIf=\"cerrarVista\"><H1>Hasta pronto!</H1></div>\n<div class=\"container\" *ngIf=\"!cerrarVista\">\n\t<form (ngSubmit)=\"submit()\" #forma=\"ngForm\">\n\t\t<h3>Ficha médica</h3>\n\t\t<hr />\n\t\t<label for=\"rut\"><b>Rut</b></label>\n\t\t<input\n            type=\"text\"\n            #rut=\"ngModel\"\n            [(ngModel)]=\"register.rut\"\n            placeholder=\"Ingrese su rut\"\n            name=\"rut\"\n            minlength=\"12\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !rut.invalid, 'is-invalid': rut.invalid && (rut.dirty || rut.touched)}\"\n\t\t\tpattern=\"^\\d{1,2}.\\d{3}.\\d{3}-[k|K|\\d]{1}$\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"rut.invalid && (rut.dirty || rut.touched)\">\n\t\t\t<div *ngIf=\"rut.errors.minlength\">\n\t\t\t\tIngrese un rut válido\n\t\t\t</div>\n\t\t\t<div *ngIf=\"rut.errors.required\">\n\t\t\t\tEl rut es requerido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"name\"><b>Nombres</b></label>\n\t\t<input\n            type=\"text\"\n            #name=\"ngModel\"\n            [(ngModel)]=\"register.name\"\n            placeholder=\"Ingrese su nombre\"\n            name=\"name\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !name.invalid, 'is-invalid': name.invalid && (name.dirty || name.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"name.invalid && (name.dirty || name.touched)\">\n\t\t\t<div *ngIf=\"name.errors.minlength\">\n\t\t\t\tIngrese un nombre con 5 caracteres mínimo\n\t\t\t</div>\n\t\t\t<div *ngIf=\"name.errors.required\">\n\t\t\t\tIngrese un nombre válido por favor\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"apellido\"><b>Apellidos</b></label>\n\t\t<input\n            type=\"text\"\n            #apellido=\"ngModel\"\n            [(ngModel)]=\"register.apellido\"\n            placeholder=\"Ingrese su apellido\"\n            name=\"apellido\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !apellido.invalid, 'is-invalid': apellido.invalid && (apellido.dirty || apellido.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"apellido.invalid && (apellido.dirty || apellido.touched)\">\n\t\t\t<div *ngIf=\"apellido.errors.minlength\">\n\t\t\t\tIngrese un apellido válido\n\t\t\t</div>\n\t\t\t<div *ngIf=\"apellido.errors.required\">\n\t\t\t\tEl apellido es requerido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"direccion\"><b>Direccion</b></label>\n\t\t<input\n            type=\"text\"\n            #direccion=\"ngModel\"\n            [(ngModel)]=\"register.direccion\"\n            placeholder=\"Ingrese su direccion\"\n            name=\"direccion\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !direccion.invalid, 'is-invalid': direccion.invalid && (direccion.dirty || direccion.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"direccion.invalid && (direccion.dirty || direccion.touched)\">\n\t\t\t<div *ngIf=\"direccion.errors.minlength\">\n\t\t\t\tIngrese una direccion válida\n\t\t\t</div>\n\t\t\t<div *ngIf=\"direccion.errors.required\">\n\t\t\t\tLa direccion es requerida\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"ciudad\"><b>Ciudad</b></label>\n\t\t<input\n            type=\"text\"\n            #ciudad=\"ngModel\"\n            [(ngModel)]=\"register.ciudad\"\n            placeholder=\"Ingrese su ciudad\"\n            name=\"ciudad\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !ciudad.invalid, 'is-invalid': ciudad.invalid && (ciudad.dirty || ciudad.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"ciudad.invalid && (ciudad.dirty || ciudad.touched)\">\n\t\t\t<div *ngIf=\"ciudad.errors.minlength\">\n\t\t\t\tIngrese una ciudad válida\n\t\t\t</div>\n\t\t\t<div *ngIf=\"ciudad.errors.required\">\n\t\t\t\tLa ciudad es requerida\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"telefono\"><b>Teléfono</b></label>\n\t\t<input\n            type=\"tel\"\n            #telefono=\"ngModel\"\n            [(ngModel)]=\"register.telefono\"\n            placeholder=\"Ingrese su telefono\"\n            name=\"telefono\"\n            minlength=\"9\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !telefono.invalid, 'is-invalid': telefono.invalid && (telefono.dirty || telefono.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"telefono.invalid && (telefono.dirty || telefono.touched)\">\n\t\t\t<div *ngIf=\"telefono.errors.minlength\">\n\t\t\t\tIngrese una telefono válido\n\t\t\t</div>\n\t\t\t<div *ngIf=\"telefono.errors.required\">\n\t\t\t\tLa telefono es requerido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"email\"><b>Correo electrónico</b></label>\n\t\t<input\n            type=\"email\"\n            #email=\"ngModel\"\n            [(ngModel)]=\"register.email\"\n            placeholder=\"Ingrese la correo electrónico\"\n            name=\"email\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !email.invalid, 'is-invalid': email.invalid && (email.dirty || email.touched)}\"\n            pattern=\"^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"email.invalid && (email.dirty || email.touched)\">\n\t\t\t<div *ngIf=\"email.errors.required\">\n\t\t\t\tIngrese un correo electrónico válido por favor {{ email.value }}\n\t\t\t</div>\n\t\t\t<div *ngIf=\"email.errors && email.errors.pattern\">\n\t\t\t\tEl correo electrónico no sigue el formato correcto. Sigue este ejemplo: anartz@mugika.com\n\t\t\t\t{{ email.value }}\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"fnaciemiento\"><b>Fecha nacimiento</b></label>\n\t\t<input\n            type=\"date\"\n            #fnaciemiento=\"ngModel\"\n            [(ngModel)]=\"register.fnaciemiento\"\n            placeholder=\"Ingrese su fnaciemiento\"\n            name=\"fnaciemiento\"\n            minlength=\"9\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !fnaciemiento.invalid, 'is-invalid': fnaciemiento.invalid && (fnaciemiento.dirty || fnaciemiento.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"fnaciemiento.invalid && (fnaciemiento.dirty || fnaciemiento.touched)\">\n\t\t\t<div *ngIf=\"fnaciemiento.errors.minlength\">\n\t\t\t\tIngrese una fecha válida\n\t\t\t</div>\n\t\t\t<div *ngIf=\"fnaciemiento.errors.required\">\n\t\t\t\tLa fecha es requerida\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"ecivil\"><b>Estado civil</b></label>\n\t\t<input\n            type=\"text\"\n            placeholder=\"Ingrese su estado civil\"\n            #ecivil=\"ngModel\"\n            [(ngModel)]=\"register.ecivil\"\n            name=\"ecivil\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !ecivil.invalid, 'is-invalid': ecivil.invalid && (ecivil.dirty || ecivil.touched)}\"\n          />\n\t\t<div class=\"invalid-feedback\" *ngIf=\"ecivil.invalid && (ecivil.dirty || ecivil.touched)\">\n\t\t\t<div *ngIf=\"ecivil.errors.required\">\n\t\t\t\tIngrese un estado civil válido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"comentarios\"><b>Comentarios</b></label>\n\t\t<input\n            type=\"text\"\n            placeholder=\"Ingrese comentarios\"\n            #comentarios=\"ngModel\"\n            [(ngModel)]=\"register.comentarios\"\n            name=\"comentarios\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !comentarios.invalid, 'is-invalid': comentarios.invalid && (comentarios.dirty || comentarios.touched)}\"\n          />\n\t\t<div class=\"invalid-feedback\" *ngIf=\"comentarios.invalid && (comentarios.dirty || comentarios.touched)\">\n\t\t\t<div *ngIf=\"comentarios.errors.required\">\n\t\t\t\tIngrese un comentario por favor\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<a (click)=\"cerrar()\" class=\"btn btn-danger\">Cerrar</a>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<a (click)=\"limpiar()\" class=\"btn btn-warning\">Limpiar</a>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!forma.valid\">Guardad</button>\n\t\t\t</div>\n\t\t</div>\n\t</form>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\" *ngIf=\"cerrarVista\"><H1>Hasta pronto!</H1></div>\n<div class=\"container\" *ngIf=\"!cerrarVista && !verLista\">\n\t<form (ngSubmit)=\"submit()\" #forma=\"ngForm\">\n\t\t<h3>Ficha médica</h3>\n\t\t<hr />\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<a (click)=\"verUsers()\" class=\"btn btn-info\">Ver lista de usuarios</a>\n\t\t\t</div>\n\t\t</div>\n\t\t<hr />\n\t\t<label for=\"rut\"><b>Rut</b></label>\n\t\t<input\n            type=\"text\"\n            #rut=\"ngModel\"\n            [(ngModel)]=\"register.rut\"\n            placeholder=\"Ingrese su rut\"\n            name=\"rut\"\n            minlength=\"12\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !rut.invalid, 'is-invalid': rut.invalid && (rut.dirty || rut.touched)}\"\n\t\t\tpattern=\"^\\d{1,2}.\\d{3}.\\d{3}-[k|K|\\d]{1}$\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"rut.invalid && (rut.dirty || rut.touched)\">\n\t\t\t<div *ngIf=\"rut.errors.minlength\">\n\t\t\t\tIngrese un rut válido\n\t\t\t</div>\n\t\t\t<div *ngIf=\"rut.errors.required\">\n\t\t\t\tEl rut es requerido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"name\"><b>Nombres</b></label>\n\t\t<input\n            type=\"text\"\n            #name=\"ngModel\"\n            [(ngModel)]=\"register.name\"\n            placeholder=\"Ingrese su nombre\"\n            name=\"name\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !name.invalid, 'is-invalid': name.invalid && (name.dirty || name.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"name.invalid && (name.dirty || name.touched)\">\n\t\t\t<div *ngIf=\"name.errors.minlength\">\n\t\t\t\tIngrese un nombre con 5 caracteres mínimo\n\t\t\t</div>\n\t\t\t<div *ngIf=\"name.errors.required\">\n\t\t\t\tIngrese un nombre válido por favor\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"apellido\"><b>Apellidos</b></label>\n\t\t<input\n            type=\"text\"\n            #apellido=\"ngModel\"\n            [(ngModel)]=\"register.apellido\"\n            placeholder=\"Ingrese su apellido\"\n            name=\"apellido\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !apellido.invalid, 'is-invalid': apellido.invalid && (apellido.dirty || apellido.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"apellido.invalid && (apellido.dirty || apellido.touched)\">\n\t\t\t<div *ngIf=\"apellido.errors.minlength\">\n\t\t\t\tIngrese un apellido válido\n\t\t\t</div>\n\t\t\t<div *ngIf=\"apellido.errors.required\">\n\t\t\t\tEl apellido es requerido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"direccion\"><b>Direccion</b></label>\n\t\t<input\n            type=\"text\"\n            #direccion=\"ngModel\"\n            [(ngModel)]=\"register.direccion\"\n            placeholder=\"Ingrese su direccion\"\n            name=\"direccion\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !direccion.invalid, 'is-invalid': direccion.invalid && (direccion.dirty || direccion.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"direccion.invalid && (direccion.dirty || direccion.touched)\">\n\t\t\t<div *ngIf=\"direccion.errors.minlength\">\n\t\t\t\tIngrese una direccion válida\n\t\t\t</div>\n\t\t\t<div *ngIf=\"direccion.errors.required\">\n\t\t\t\tLa direccion es requerida\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"ciudad\"><b>Ciudad</b></label>\n\t\t<input\n            type=\"text\"\n            #ciudad=\"ngModel\"\n            [(ngModel)]=\"register.ciudad\"\n            placeholder=\"Ingrese su ciudad\"\n            name=\"ciudad\"\n            minlength=\"5\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !ciudad.invalid, 'is-invalid': ciudad.invalid && (ciudad.dirty || ciudad.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"ciudad.invalid && (ciudad.dirty || ciudad.touched)\">\n\t\t\t<div *ngIf=\"ciudad.errors.minlength\">\n\t\t\t\tIngrese una ciudad válida\n\t\t\t</div>\n\t\t\t<div *ngIf=\"ciudad.errors.required\">\n\t\t\t\tLa ciudad es requerida\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"telefono\"><b>Teléfono</b></label>\n\t\t<input\n            type=\"tel\"\n            #telefono=\"ngModel\"\n            [(ngModel)]=\"register.telefono\"\n            placeholder=\"Ingrese su telefono\"\n            name=\"telefono\"\n            minlength=\"9\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !telefono.invalid, 'is-invalid': telefono.invalid && (telefono.dirty || telefono.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"telefono.invalid && (telefono.dirty || telefono.touched)\">\n\t\t\t<div *ngIf=\"telefono.errors.minlength\">\n\t\t\t\tIngrese una telefono válido\n\t\t\t</div>\n\t\t\t<div *ngIf=\"telefono.errors.required\">\n\t\t\t\tLa telefono es requerido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"email\"><b>Correo electrónico</b></label>\n\t\t<input\n            type=\"email\"\n            #email=\"ngModel\"\n            [(ngModel)]=\"register.email\"\n            placeholder=\"Ingrese la correo electrónico\"\n            name=\"email\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !email.invalid, 'is-invalid': email.invalid && (email.dirty || email.touched)}\"\n            pattern=\"^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"email.invalid && (email.dirty || email.touched)\">\n\t\t\t<div *ngIf=\"email.errors.required\">\n\t\t\t\tIngrese un correo electrónico válido por favor {{ email.value }}\n\t\t\t</div>\n\t\t\t<div *ngIf=\"email.errors && email.errors.pattern\">\n\t\t\t\tEl correo electrónico no sigue el formato correcto. Sigue este ejemplo: anartz@mugika.com\n\t\t\t\t{{ email.value }}\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"fnaciemiento\"><b>Fecha nacimiento</b></label>\n\t\t<input\n            type=\"date\"\n            #fnaciemiento=\"ngModel\"\n            [(ngModel)]=\"register.fnaciemiento\"\n            placeholder=\"Ingrese su fnaciemiento\"\n            name=\"fnaciemiento\"\n            minlength=\"9\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !fnaciemiento.invalid, 'is-invalid': fnaciemiento.invalid && (fnaciemiento.dirty || fnaciemiento.touched)}\"\n          />\n\n\t\t<div class=\"invalid-feedback\" *ngIf=\"fnaciemiento.invalid && (fnaciemiento.dirty || fnaciemiento.touched)\">\n\t\t\t<div *ngIf=\"fnaciemiento.errors.minlength\">\n\t\t\t\tIngrese una fecha válida\n\t\t\t</div>\n\t\t\t<div *ngIf=\"fnaciemiento.errors.required\">\n\t\t\t\tLa fecha es requerida\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"ecivil\"><b>Estado civil</b></label>\n\t\t<input\n            type=\"text\"\n            placeholder=\"Ingrese su estado civil\"\n            #ecivil=\"ngModel\"\n            [(ngModel)]=\"register.ecivil\"\n            name=\"ecivil\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !ecivil.invalid, 'is-invalid': ecivil.invalid && (ecivil.dirty || ecivil.touched)}\"\n          />\n\t\t<div class=\"invalid-feedback\" *ngIf=\"ecivil.invalid && (ecivil.dirty || ecivil.touched)\">\n\t\t\t<div *ngIf=\"ecivil.errors.required\">\n\t\t\t\tIngrese un estado civil válido\n\t\t\t</div>\n\t\t</div>\n\t\t<label for=\"comentarios\"><b>Comentarios</b></label>\n\t\t<input\n            type=\"text\"\n            placeholder=\"Ingrese comentarios\"\n            #comentarios=\"ngModel\"\n            [(ngModel)]=\"register.comentarios\"\n            name=\"comentarios\"\n            class=\"form-control\"\n            required\n            [ngClass]=\"{'is-valid': !comentarios.invalid, 'is-invalid': comentarios.invalid && (comentarios.dirty || comentarios.touched)}\"\n          />\n\t\t<div class=\"invalid-feedback\" *ngIf=\"comentarios.invalid && (comentarios.dirty || comentarios.touched)\">\n\t\t\t<div *ngIf=\"comentarios.errors.required\">\n\t\t\t\tIngrese un comentario por favor\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<a (click)=\"cerrar()\" class=\"btn btn-danger\">Cerrar</a>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<a (click)=\"limpiar()\" class=\"btn btn-warning\">Limpiar</a>\n\t\t\t</div>\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!forma.valid\">Guardad</button>\n\t\t\t</div>\n\t\t</div>\n\t</form>\n</div>\n<div class=\"container\" *ngIf=\"verLista\">\n\t<section class=\"pb-3\">\n\t\t<div class=\"card mb-20\">\n\t\t\t<h5 class=\"card-header\">Usuarios</h5>\n\t\t\t<div class=\"card-body\">\n\t\t\t\t<table class=\"table table-striped mt-20\">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th scope=\"col\">Nombre</th>\n\t\t\t\t\t\t\t<th scope=\"col\">Rut</th>\n\t\t\t\t\t\t\t<th scope=\"col\">Dirección</th>\n\t\t\t\t\t\t\t<th scope=\"col\">Teléfono</th>\n\t\t\t\t\t\t\t<th scope=\"col\">Fecha Nacimiento</th>\n\t\t\t\t\t\t\t<th scope=\"col\"></th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t<tr *ngFor=\"let user of usersList\">\n\t\t\t\t\t\t\t<th scope=\"row\">{{ user.nombres }} {{ user.apellidos }}</th>\n\t\t\t\t\t\t\t<td>{{ user.rut }}</td>\n\t\t\t\t\t\t\t<td>{{ user.direccion }}</td>\n\t\t\t\t\t\t\t<td>{{ user.telefono }}</td>\n\t\t\t\t\t\t\t<td>{{ user.fechaNacimiento }}</td>\n\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-lg col-4\">\n\t\t\t\t<a (click)=\"volver()\" class=\"btn btn-info\">Volver</a>\n\t\t\t</div>\n\t\t</div>\n\t</section>\n</div>\n");
 
 /***/ }),
 
