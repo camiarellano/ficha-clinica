@@ -1,0 +1,127 @@
+{
+    "status": "success",
+    "code": "0",
+    "message": "exito",
+    "usuarios": [
+        {
+            "rut": "17098624-5",
+            "nombres": "Juana",
+            "apellidos": "Riquelme",
+            "direccion": "tte cruz 21",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "Juana@gmail.com",
+            "fechaNacimiento": "22/03/1982",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "17673098-6",
+            "nombres": "Tomas Andres",
+            "apellidos": "Paz Flores",
+            "direccion": "Laguna sur 312",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "Tomas@gmail.com",
+            "fechaNacimiento": "21/04/1982",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "11092026-1",
+            "nombres": "Corina",
+            "apellidos": "Heriquez Flores",
+            "direccion": "los castaños 92",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "Corina@gmail.com",
+            "fechaNacimiento": "11/06/1992",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "7868126-8",
+            "nombres": "Diego andres",
+            "apellidos": "Campos",
+            "direccion": "pto aysen",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "Campos@gmail.com",
+            "fechaNacimiento": "04/03/1986",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "15953800-1",
+            "nombres": "Renato diego",
+            "apellidos": "Tapia Cruz",
+            "direccion": "isla maipo 4433",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "Tapiac@gmail.com",
+            "fechaNacimiento": "21/05/1992",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "19816904-8",
+            "nombres": "Paula Ines",
+            "apellidos": "Riquelme Paz",
+            "direccion": "Pajaritos 443",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "PaulaS@gmail.com",
+            "fechaNacimiento": "22/03/1982",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "5504225-k",
+            "nombres": "Gabriela paz",
+            "apellidos": "Muñoz Nuñez",
+            "direccion": "bramador 2212",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "gpaz@gmail.com",
+            "fechaNacimiento": "11/11/1989",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "6374269-4",
+            "nombres": "Francisco javier",
+            "apellidos": "Espinosa bustos",
+            "direccion": "rio tranquilo 3232",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "fespinosa@gmail.com",
+            "fechaNacimiento": "22/05/1991",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "14879280-1",
+            "nombres": "Marcelo jesus",
+            "apellidos": "tapia gonzalez",
+            "direccion": "los mares 212",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "mtapia@gmail.com",
+            "fechaNacimiento": "21/05/1995",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        },
+        {
+            "rut": "10997901-5",
+            "nombres": "Carlos alberto",
+            "apellidos": "montoya ceballos",
+            "direccion": "pto montt 3232",
+            "ciudad": "santiago",
+            "telefono": "99435443",
+            "correo": "montoya@gmail.com",
+            "fechaNacimiento": "22/03/1982",
+            "estadoCivil": "soltero",
+            "comentarios": ""
+        }
+    ]
+}

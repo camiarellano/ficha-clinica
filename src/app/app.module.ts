@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from "./app.component";
 import { HelloComponent } from "./hello.component";
@@ -8,7 +9,7 @@ import { ReactiveFormsComponent } from "./reactive-forms/reactive-forms.componen
 import { TemplateFormsComponent } from "./template-forms/template-forms.component";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   declarations: [
     AppComponent,
     HelloComponent,

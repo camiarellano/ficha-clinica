@@ -1,7 +1,13 @@
 <div class="container" *ngIf="cerrarVista"><H1>Hasta pronto!</H1></div>
-<div class="container" *ngIf="!cerrarVista">
+<div class="container" *ngIf="!cerrarVista && !verLista">
 	<form (ngSubmit)="submit()" #forma="ngForm">
 		<h3>Ficha médica</h3>
+		<hr />
+		<div class="row">
+			<div class="col-lg col-4">
+				<a (click)="verUsers()" class="btn btn-info">Ver lista de usuarios</a>
+			</div>
+		</div>
 		<hr />
 		<label for="rut"><b>Rut</b></label>
 		<input
@@ -218,4 +224,42 @@
 			</div>
 		</div>
 	</form>
+</div>
+<div class="container" *ngIf="verLista">
+	<section class="pb-3">
+		<div class="card mb-20">
+			<h5 class="card-header">Usuarios</h5>
+			<div class="card-body">
+				<table class="table table-striped mt-20">
+					<thead>
+						<tr>
+							<th scope="col">Nombre</th>
+							<th scope="col">Rut</th>
+							<th scope="col">Dirección</th>
+							<th scope="col">Teléfono</th>
+							<th scope="col">Fecha Nacimiento</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let user of usersList">
+							<th scope="row">{{ user.nombres }} {{ user.apellidos }}</th>
+							<td>{{ user.rut }}</td>
+							<td>{{ user.direccion }}</td>
+							<td>{{ user.telefono }}</td>
+							<td>{{ user.fechaNacimiento }}</td>
+							<td>
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg col-4">
+				<a (click)="volver()" class="btn btn-info">Volver</a>
+			</div>
+		</div>
+	</section>
 </div>

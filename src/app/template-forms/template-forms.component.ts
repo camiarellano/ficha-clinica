@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { StringifyOptions } from "querystring";
+import { Subscription } from "rxjs/internal/Subscription";
+import { FormsService } from "./forms.service";
 
 interface IRegisterForm {
   rut:  string;
@@ -19,8 +21,10 @@ interface IRegisterForm {
   templateUrl: "./template-forms.component.html",
   styleUrls: ["./template-forms.component.css"]
 })
-export class TemplateFormsComponent {
+export class TemplateFormsComponent implements OnInit {
   cerrarVista = false;
+  verLista = false;
+  usersList = [];
   register: IRegisterForm = {
     rut: "",
     name: "",
@@ -33,7 +37,13 @@ export class TemplateFormsComponent {
     estadoCivil: "",
     comentarios: ""
   };
-  constructor() {}
+  constructor(private formsService: FormsService) {}
+  private subscription: Subscription = null;
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
   submit() {
     // Llegados a este punto, ya hemos podido validar todo excepto las contraseñas y ya recibimos los datos
     console.log("Datos de inicio de sesión");
@@ -62,5 +72,26 @@ export class TemplateFormsComponent {
   cerrar() {
     this.cerrarVista = true;
   }
+
+  verUsers() {
+    this.verLista = true;
+  }
+
+  volver() {
+    this.verLista = false;
+  }
+
+  /**
+   * Obtiene lista de indicadares
+   */
+   getUsers(): void {
+    this.subscription = this.formsService.getUsersList()
+      .subscribe(response => {
+        console.log('response', response.usuarios);
+        this.usersList = response.usuarios;
+      });
+  }
+
+
 
 }
